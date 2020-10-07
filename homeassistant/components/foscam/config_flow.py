@@ -15,7 +15,8 @@ from homeassistant.const import (
     CONF_USERNAME,
 )
 
-from .const import CONF_STREAM, DEFAULT_PORT, DOMAIN, LOGGER, STREAMS
+from .const import CONF_STREAM, DEFAULT_PORT, LOGGER, STREAMS
+from .const import DOMAIN  # pylint:disable=unused-import
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -49,7 +50,7 @@ async def validate_input(hass: core.HomeAssistant, data):
     if ret == ERROR_FOSCAM_UNAVAILABLE:
         raise CannotConnect
 
-    elif ret == ERROR_FOSCAM_AUTH:
+    if ret == ERROR_FOSCAM_AUTH:
         raise InvalidAuth
 
     return {CONF_NAME: response["devName"], CONF_MAC: response["mac"]}
