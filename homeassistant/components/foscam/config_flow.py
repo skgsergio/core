@@ -1,6 +1,4 @@
 """Config flow for foscam integration."""
-import logging
-
 from libpyfoscam import FoscamCamera
 from libpyfoscam.foscam import ERROR_FOSCAM_AUTH, ERROR_FOSCAM_UNAVAILABLE
 import voluptuous as vol
@@ -15,10 +13,13 @@ from homeassistant.const import (
     CONF_USERNAME,
 )
 
-from .const import CONF_STREAM, DEFAULT_PORT, LOGGER, STREAMS
+from .const import CONF_STREAM, LOGGER
 from .const import DOMAIN  # pylint:disable=unused-import
 
-_LOGGER = logging.getLogger(__name__)
+STREAMS = ["Main", "Sub"]
+
+DEFAULT_PORT = 88
+
 
 DATA_SCHEMA = vol.Schema(
     {

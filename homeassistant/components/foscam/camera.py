@@ -16,24 +16,35 @@ from homeassistant.const import (
 )
 from homeassistant.helpers import config_validation as cv, entity_platform
 
-from .const import (
-    ATTR_MOVEMENT,
-    ATTR_TRAVELTIME,
-    CONF_STREAM,
-    DEFAULT_TRAVELTIME,
-    DIR_BOTTOMLEFT,
-    DIR_BOTTOMRIGHT,
-    DIR_DOWN,
-    DIR_LEFT,
-    DIR_RIGHT,
-    DIR_TOPLEFT,
-    DIR_TOPRIGHT,
-    DIR_UP,
-    DOMAIN,
-    LOGGER,
-    MOVEMENT_ATTRS,
-    SERVICE_PTZ,
-)
+from .const import CONF_STREAM, DOMAIN, LOGGER
+
+DIR_UP = "up"
+DIR_DOWN = "down"
+DIR_LEFT = "left"
+DIR_RIGHT = "right"
+
+DIR_TOPLEFT = "top_left"
+DIR_TOPRIGHT = "top_right"
+DIR_BOTTOMLEFT = "bottom_left"
+DIR_BOTTOMRIGHT = "bottom_right"
+
+MOVEMENT_ATTRS = {
+    DIR_UP: "ptz_move_up",
+    DIR_DOWN: "ptz_move_down",
+    DIR_LEFT: "ptz_move_left",
+    DIR_RIGHT: "ptz_move_right",
+    DIR_TOPLEFT: "ptz_move_top_left",
+    DIR_TOPRIGHT: "ptz_move_top_right",
+    DIR_BOTTOMLEFT: "ptz_move_bottom_left",
+    DIR_BOTTOMRIGHT: "ptz_move_bottom_right",
+}
+
+DEFAULT_TRAVELTIME = 0.125
+
+SERVICE_PTZ = "ptz"
+ATTR_MOVEMENT = "movement"
+ATTR_TRAVELTIME = "travel_time"
+
 
 SERVICE_PTZ_SCHEMA = vol.Schema(
     {
