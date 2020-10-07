@@ -59,6 +59,7 @@ FLOWS = [
     "flume",
     "flunearyou",
     "forked_daapd",
+    "foscam",
     "freebox",
     "fritzbox",
     "garmin_connect",
