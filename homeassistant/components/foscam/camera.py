@@ -95,7 +95,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         SERVICE_PTZ, SERVICE_PTZ_SCHEMA, "async_perform_ptz"
     )
 
-    config = hass.data[DOMAIN][config_entry.unique_id]
+    config = {CONF_NAME: config_entry.title, **config_entry.data}
 
     camera = FoscamCamera(
         config[CONF_HOST],
