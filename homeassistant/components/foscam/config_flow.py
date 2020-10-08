@@ -11,6 +11,7 @@ from homeassistant.const import (
     CONF_PORT,
     CONF_USERNAME,
 )
+from homeassistant.data_entry_flow import AbortFlow
 
 from .const import CONF_STREAM, LOGGER
 from .const import DOMAIN  # pylint:disable=unused-import
@@ -72,13 +73,16 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             try:
-                return self._validate_and_create(user_input)
+                return await self._validate_and_create(user_input)
 
             except CannotConnect:
                 errors["base"] = "cannot_connect"
 
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
+
+            except AbortFlow:
+                raise
 
             except Exception:  # pylint: disable=broad-except
                 LOGGER.exception("Unexpected exception")
@@ -100,6 +104,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         except InvalidAuth:
             LOGGER.error("Error importing foscam platform config: invalid auth.")
             return self.async_abort(reason="invalid_auth")
+
+        except AbortFlow:
+            raise
 
         except Exception:  # pylint: disable=broad-except
             LOGGER.exception(
