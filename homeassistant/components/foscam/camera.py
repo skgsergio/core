@@ -4,7 +4,7 @@ import asyncio
 from libpyfoscam import FoscamCamera
 import voluptuous as vol
 
-from homeassistant.components.camera import SUPPORT_STREAM, Camera
+from homeassistant.components.camera import PLATFORM_SCHEMA, SUPPORT_STREAM, Camera
 from homeassistant.config_entries import SOURCE_IMPORT
 from homeassistant.const import (
     ATTR_ENTITY_ID,
@@ -17,6 +17,25 @@ from homeassistant.const import (
 from homeassistant.helpers import config_validation as cv, entity_platform
 
 from .const import CONF_STREAM, DOMAIN, LOGGER
+
+PLATFORM_SCHEMA = vol.All(
+    cv.deprecated("ip", invalidation_version="0.118"),
+    cv.deprecated(CONF_PASSWORD, invalidation_version="0.118"),
+    cv.deprecated(CONF_USERNAME, invalidation_version="0.118"),
+    cv.deprecated(CONF_NAME, invalidation_version="0.118"),
+    cv.deprecated(CONF_PORT, invalidation_version="0.118"),
+    cv.deprecated("rtsp_port", invalidation_version="0.118"),
+    PLATFORM_SCHEMA.extend(
+        {
+            vol.Required("ip"): cv.string,
+            vol.Required(CONF_PASSWORD): cv.string,
+            vol.Required(CONF_USERNAME): cv.string,
+            vol.Optional(CONF_NAME, default="Foscam Camera"): cv.string,
+            vol.Optional(CONF_PORT, default=88): cv.port,
+            vol.Optional("rtsp_port"): cv.port,
+        }
+    ),
+)
 
 DIR_UP = "up"
 DIR_DOWN = "down"
